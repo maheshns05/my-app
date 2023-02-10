@@ -1,0 +1,13 @@
+#courseForm {
+    background-color: white;
+    padding: 20px;
+}
+
+#courseForm input {
+    margin: 5px 0 10px 0;
+}
+
+#courseForm .submitContainer {
+    display: flex;;
+    justify-content: end;
+}
