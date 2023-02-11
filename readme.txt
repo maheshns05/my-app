@@ -1,1 +1,1 @@
-This is sample docker project
+This is sample docker project with React, Express and MongoDB
