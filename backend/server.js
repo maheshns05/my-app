@@ -8,8 +8,9 @@ const config = require('config');
 const courses = require('./routes/courses');
 
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb://admin:password@localhost:27017/npm-demo', {
+mongoose.connect('mongodb://admin:password@mongodb:27017/npm-demo', {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
     authSource:"admin"
 })
   .then(() => console.log('Connected to DB!'))
@@ -31,7 +32,7 @@ app.get('/', (req, res) => {
     res.send('Hello World adssad!');
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
     console.log(`Server running at port: ${PORT}`);

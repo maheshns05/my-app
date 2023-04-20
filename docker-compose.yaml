@@ -1,0 +1,56 @@
+version: '3'
+services:
+  frontend:
+    build: 
+      context: './frontend'
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    container_name: frontend
+    networks:
+      - mongo-networks
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+  backend:
+    build: 
+      context: './backend'
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+    container_name: backend
+    networks:
+      - mongo-networks
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+    container_name: mongodb
+    networks:
+      - mongo-networks
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - mongoData:/data/db
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    container_name: mongo-express
+    networks:
+      - mongo-networks
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+networks:
+  mongo-networks:
+volumes:
+  mongoData:
